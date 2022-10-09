@@ -16,12 +16,11 @@ class BaseModel:
         self.updated_at = datetime.now()
         self.id = str(uuid.uuid4())
 
-
         for key, mydate in kwargs.items():
             if key == "created_at" or key == "updated_at":
                 mydate = datetime.strptime(mydate, "%Y-%m-%dT%H:%M:%S.%f")
                 setattr(self, key, mydate)
-            else:
+            elif key != "__class__":
                 setattr(self, key, mydate)
 
     def __str__(self):
