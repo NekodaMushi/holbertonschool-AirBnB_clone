@@ -2,7 +2,7 @@
 """Base defining all common attributes/methods for other classes:"""
 from datetime import datetime
 import uuid
-from models import storage
+import models
 
 class BaseModel:
     """Mother Class of all within this project"""
