@@ -22,7 +22,7 @@ class BaseModel:
                 setattr(self, key, mydate)
             elif key != "__class__":
                 setattr(self, key, mydate)
-        storage.new(self)
+        models.storage.new(self)
 
     def __str__(self):
         """String Representation of Object"""
@@ -34,7 +34,7 @@ class BaseModel:
         with current datetime"""
 
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """returns a dictionary 
