@@ -2,7 +2,7 @@
 """Function giving the possibility to stores and 
 restores any objects created before"""
 import json
-
+from models.base_model import BaseModel
 
 class FileStorage:
     """Storage class"""
