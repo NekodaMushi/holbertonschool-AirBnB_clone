@@ -2,6 +2,7 @@
 """Base defining all common attributes/methods for other classes:"""
 from datetime import datetime
 import uuid
+import models
 
 
 class BaseModel:
@@ -15,6 +16,7 @@ class BaseModel:
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
         self.id = str(uuid.uuid4())
+        models.storage.new(self)
 
         for key, mydate in kwargs.items():
             if key == "created_at" or key == "updated_at":
@@ -31,8 +33,8 @@ class BaseModel:
     def save(self):
         """Updates the public instance attribute
         with current datetime"""
-
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary 
