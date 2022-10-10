@@ -2,7 +2,7 @@
 """Base defining all common attributes/methods for other classes:"""
 from datetime import datetime
 import uuid
-
+from models import storage
 
 class BaseModel:
     """Mother Class of all within this project"""
@@ -22,6 +22,7 @@ class BaseModel:
                 setattr(self, key, mydate)
             elif key != "__class__":
                 setattr(self, key, mydate)
+        storage.new(self)
 
     def __str__(self):
         """String Representation of Object"""
@@ -33,6 +34,7 @@ class BaseModel:
         with current datetime"""
 
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """returns a dictionary 
