@@ -1,31 +1,23 @@
 #!/usr/bin/python3
+"""Unittest"""
 import unittest
-import datetime
+from datetime import datetime
+from unittest.mock import Base
 from models.base_model import BaseModel
 
 
-class TestBaseModel(unittest.TestCase):
-    """Class for testing to gik"""
+class BaseModelTest(unittest.TestCase):
+    """BaseModel Test Class"""
 
-    def test_save(self):
-        """test saving function"""
-        b = BaseModel(5, 2, 6)
-        b.save()
-        self.assertNotEqual(b.created_at, b.updated_at)
+    def testId(self):
+        b0 = BaseModel()
+        b0.number = 32
+        b0.string = "Chung"
+        b0.fail = None
+        b0.save()
+        self.assertNotEqual(b0.created_at, b0.updated_at)
 
-    def test_dict(self):
-        """test to_dict function"""
-        b = BaseModel()
-        b.name = "Fabien"
-        b.age = "57"
-        b.country = "Australia"
-        dic = b.to_dict()
-        self.assertEqual(dic["name"], b.name)
-        self.assertEqual(dic["age"], b.age)
-        self.assertEqual(dic["country"], b.country)
-
-    def test_str(self):
-        """testing the string representation"""
-        b = BaseModel()
-        checker = f"[{(b).__class__.__name__}] ({b.id}) {b.__dict__}"
-        self.assertEqual(str(b), checker)
+    def test__str__(self):
+        b1 = BaseModel()
+        checker = [f"[{(b1).__name__}] ({b1.id}) {b1.__dict__}"]
+        self.assertEqual(str(b1), checker)
