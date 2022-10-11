@@ -20,7 +20,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertEqual(type(dic_obj), dict)
 
     def test_save(self):
-        """Test the save function"""
+        """Test Save function"""
         self.setUp()
         self.assertEqual(os.path.getsize("file.json"), 2)
         os.remove("file.json")
