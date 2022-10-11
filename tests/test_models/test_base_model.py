@@ -8,8 +8,9 @@ from models.base_model import BaseModel
 
 class BaseModelTest(unittest.TestCase):
     """BaseModel Test Class"""
+
     def testId(self):
-        b0= BaseModel()
+        b0 = BaseModel()
         b0.number = 32
         b0.string = "Chung"
         b0.fail = None
