@@ -19,4 +19,4 @@ class BaseModelTest(unittest.TestCase):
     def test__str__(self):
         b1 = BaseModel()
         checker = [f"[{(b1).__name__}] ({b1.id}) {b1.__dict__}"]
-        self.assertEqual(b1, checker)
+        self.assertEqual(str(b1), checker)
