@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
-        sys.exit(1)
+        exit()
 
     def emptyline(self):
         """empty line + ENTER
