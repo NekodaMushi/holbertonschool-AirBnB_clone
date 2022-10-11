@@ -15,9 +15,8 @@ class TestFileStorage(unittest.TestCase):
         all dictionary __objects"""
         store = FileStorage()
         dic_obj = store.all()
-        self.assertIsNotNone(dic_obj)
+        self.assertDictEqual(dic_obj, {})
         self.assertEqual(type(dic_obj), dict)
-
 
 if __name__ == "__main__":
     unittest.main()
