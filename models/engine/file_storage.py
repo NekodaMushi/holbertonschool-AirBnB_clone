@@ -7,12 +7,9 @@ from models.base_model import BaseModel
 class FileStorage:
     """Storage class"""
 
-    def __init__(self):
-        """Init: FileStorage
-       Var:
-       """
-        self.__file_path = 'file.json'
-        self.__objects = {}
+
+    __file_path = 'file.json'
+    __objects = {}
 
     def all(self):
         """Returns dictionnary __objects"""
@@ -38,7 +35,7 @@ class FileStorage:
             with open(self.__file_path, "r+") as data:
                 JSONdata = json.load(data)
                 for key, value in JSONdata.items():
-                    #Use eval because you wanna reconstruct an object
+                    #Use eval because you wanna reconstruct an instance
                     self.__objects[key] = eval(value['__class__'])(**value)
         #Get all exceptions possible
         except Exception:

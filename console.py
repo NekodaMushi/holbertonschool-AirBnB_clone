@@ -1,27 +1,24 @@
 #!/usr/bin/python3
-"""Console- entry point of cmd interpreter"""
+"""Entry point of command interpreter"""
 import cmd
-import sys
 
 
 class HBNBCommand(cmd.Cmd):
-    """let's have fun!!"""
-    # Customize prompt right here easily
+    """Terminal like python"""
+
     prompt = '(hbnb)'
 
-    def do_EOF(self, line):
-        """Ctrl^D exit the program"""
+    def do_EOF(self, arg):
+        """Ctrl-d"""
         return True
-
-    def do_quit(self, arg):
-        """Quit command to exit the program"""
-        sys.exit(1)
+    
+    def do_quit(self,arg):
+        """Ctrl-z"""
+        exit()
 
     def emptyline(self):
-        """empty line + ENTER
-        won't execute anything"""
         pass
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
