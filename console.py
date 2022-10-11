@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 """Entry point of command interpreter"""
 import cmd
-<<<<<<< HEAD
-=======
 import models
 from datetime import datetime
 from models.base_model import BaseModel
 from models import storage
->>>>>>> 63fcf768e7a6f194e5b3fb0aefa4a6ba9b259aa4
 
 
 class HBNBCommand(cmd.Cmd):
