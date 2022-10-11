@@ -20,3 +20,6 @@ class BaseModelTest(unittest.TestCase):
         b1 = BaseModel()
         checker = [f"[{(b1).__name__}] ({b1.id}) {b1.__dict__}"]
         self.assertEqual(str(b1), checker)
+
+if __name__ == '__main__':
+    unittest.main()
