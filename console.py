@@ -97,16 +97,17 @@ class HBNBCommand(cmd.Cmd):
         """Prints all strings representation of all
         instances based or not on the class name"""
         args = line.split()
-        all_dict = storage.all()
-        string_list = []
-        if len(args) == 1:
-            if args[0] not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-        elif len(args) == 0:
-            for value in all_dict.copy().values():
-                if value.__class__.__name__ == args[0]:
-                    string_list.append(str(value))
-            print(string_list)
+        if len(line) > 0 and args[0] not in self.classes:
+            print("** class doesn't exist **")
+        else:
+            lst = []
+            all_dict = storage.all()
+            for val in all_dict.values():
+                if val.__class__.__name__ == args[0]:
+                    lst.append(str(val))
+                elif len(line) == 0:
+                    lst.append(str(val))
+            print(lst)
 
     def do_update(self, line):
         """
