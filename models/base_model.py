@@ -4,6 +4,7 @@ from datetime import datetime
 import uuid
 import models
 
+
 class BaseModel:
     """Mother Class of all within this project"""
 
@@ -12,17 +13,18 @@ class BaseModel:
         Args: Key
         Kwargs: Value"""
 
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
-        self.id = str(uuid.uuid4())
-
-        for key, mydate in kwargs.items():
-            if key == "created_at" or key == "updated_at":
-                mydate = datetime.strptime(mydate, "%Y-%m-%dT%H:%M:%S.%f")
-                setattr(self, key, mydate)
-            elif key != "__class__":
-                setattr(self, key, mydate)
-        models.storage.new(self)
+        if kwargs:
+            for key, mydate in kwargs.items():
+                if key == "created_at" or key == "updated_at":
+                    mydate = datetime.strptime(mydate, "%Y-%m-%dT%H:%M:%S.%f")
+                    setattr(self, key, mydate)
+                elif key != "__class__":
+                    setattr(self, key, mydate)
+        else:
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
+            self.id = str(uuid.uuid4())
+            models.storage.new(self)
 
     def __str__(self):
         """String Representation of Object"""
@@ -37,8 +39,8 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        """returns a dictionary 
-        containing all keys/values of 
+        """returns a dictionary
+        containing all keys/values of
         __dict__ of the instance"""
 
         dict = {}
