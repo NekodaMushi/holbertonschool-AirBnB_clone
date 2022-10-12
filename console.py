@@ -116,24 +116,31 @@ class HBNBCommand(cmd.Cmd):
         update <class name> <id> <attribute name> "<attribute value>"
         """
         args = line.split()
-        if len(args) >= 4:
+        if len(args) == 0:
+            print("** class name missing **")
+            return False
+        if args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return False
+        if len(args) == 1:
+            print("** instance id missing **")
+            return False
+        if f"{args[0]}.{args[1]}" not in storage.all().keys():
+            print("** no instance found **")
+            return False
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return False
+        if len(args) == 3:
+            print("** value missing **")
+            return False
+        if len(args) == 4:
             name = f"{args[0]}.{args[1]}"
             right_type = type(args[3])
-            args3 = args[3].strip('"')
+            args3 = args[3]
+            args3 = args3.strip('"')
             setattr(storage.all()[name], args[2], right_type(args3))
             storage.all()[name].save()
-        elif len(args) == 0:
-            print("** class name missing **")
-        elif args[0] not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-        elif len(args) == 1:
-            print("** instance id missing **")
-        elif (f"{args[0]}.{args[1]}" not in storage.all().keys()):
-            print("** no instance found **")
-        elif len(args) == 2:
-            print("** attribute name missing **")
-        else:
-            print("** value missing **")
 
 
 if __name__ == "__main__":
