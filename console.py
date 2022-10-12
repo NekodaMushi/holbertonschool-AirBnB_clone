@@ -12,7 +12,7 @@ class HBNBCommand(cmd.Cmd):
     """Terminal like python"""
 
     prompt = '(hbnb)'
-    classes = {"BaseModel"}
+    classes = {"BaseModel", "User"}
 
     def do_EOF(self, arg):
         """Ctrl-d"""
