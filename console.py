@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 """Entry point of command interpreter"""
 import cmd
-import argparse
+import json
 import models
 from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models import storage
 
 
@@ -13,7 +18,8 @@ class HBNBCommand(cmd.Cmd):
     """Terminal like python"""
 
     prompt = '(hbnb)'
-    classes = {"BaseModel", "User"}
+    classes = {"BaseModel", "User", "State",
+               "City", "Amenity", "Place", "Review"}
 
     def do_EOF(self, arg):
         """Ctrl-d"""
@@ -112,20 +118,18 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         if len(args) >= 4:
             name = f"{args[0]}.{args[1]}"
-            right_type = type(args[2])
-            print(right_type)
-            args3 = right_type(args[3])
-            args3 = args3.strip('\"')
-            setattr(storage.all()[name], args[2], args3)
+            right_type = type(args[3])
+            args3 = args[3].strip('"')
+            setattr(storage.all()[name], args[2], right_type(args3))
             storage.all()[name].save()
         elif len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        elif (f"{args[0]}.{args[1]}" not in storage.all().keys()):
-            print("** no instance found **")
         elif len(args) == 1:
             print("** instance id missing **")
+        elif (f"{args[0]}.{args[1]}" not in storage.all().keys()):
+            print("** no instance found **")
         elif len(args) == 2:
             print("** attribute name missing **")
         else:
