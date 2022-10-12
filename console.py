@@ -1,11 +1,16 @@
 #!/usr/bin/python3
 """Entry point of command interpreter"""
 import cmd
-import argparse
+import json
 import models
 from datetime import datetime
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 from models import storage
 
 
@@ -13,7 +18,8 @@ class HBNBCommand(cmd.Cmd):
     """Terminal like python"""
 
     prompt = '(hbnb)'
-    classes = {"BaseModel", "User"}
+    classes = {"BaseModel", "User", "State",
+               "City", "Amenity", "Place", "Review"}
 
     def do_EOF(self, arg):
         """Ctrl-d"""
@@ -91,16 +97,17 @@ class HBNBCommand(cmd.Cmd):
         """Prints all strings representation of all
         instances based or not on the class name"""
         args = line.split()
-        all_dict = storage.all()
-        string_list = []
-        if len(args) == 1:
-            if args[0] not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-        elif len(args) == 0:
-            for value in all_dict.copy().values():
-                if value.__class__.__name__ == args[0]:
-                    string_list.append(str(value))
-            print(string_list)
+        if len(line) > 0 and args[0] not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        else:
+            lst = []
+            all_dict = storage.all()
+            for val in all_dict.values():
+                if len(line) > 0 and val.__class__.__name__ == args[0]:
+                    lst.append(val.__str__())
+                elif len(line) == 0:
+                    lst.append(val.__str__())
+            print(lst)
 
     def do_update(self, line):
         """
@@ -110,26 +117,31 @@ class HBNBCommand(cmd.Cmd):
         update <class name> <id> <attribute name> "<attribute value>"
         """
         args = line.split()
-        if len(args) >= 4:
-            name = f"{args[0]}.{args[1]}"
-            right_type = type(args[2])
-            print(right_type)
-            args3 = right_type(args[3])
-            args3 = args3.strip('\"')
-            setattr(storage.all()[name], args[2], args3)
-            storage.all()[name].save()
-        elif len(args) == 0:
+        if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.classes:
+            return False
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
-        elif (f"{args[0]}.{args[1]}" not in storage.all().keys()):
-            print("** no instance found **")
-        elif len(args) == 1:
+            return False
+        if len(args) == 1:
             print("** instance id missing **")
-        elif len(args) == 2:
+            return False
+        if f"{args[0]}.{args[1]}" not in storage.all().keys():
+            print("** no instance found **")
+            return False
+        if len(args) == 2:
             print("** attribute name missing **")
-        else:
+            return False
+        if len(args) == 3:
             print("** value missing **")
+            return False
+        if len(args) == 4:
+            name = f"{args[0]}.{args[1]}"
+            right_type = type(args[3])
+            args3 = args[3]
+            args3 = args3.strip('"')
+            setattr(storage.all()[name], args[2], right_type(args3))
+            storage.all()[name].save()
 
 
 if __name__ == "__main__":
