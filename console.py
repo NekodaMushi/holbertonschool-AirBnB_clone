@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Entry point of command interpreter"""
 import cmd
+import argparse
 import models
 from datetime import datetime
 from models.base_model import BaseModel
@@ -39,21 +40,29 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
-    def do_show(self, args):
+    def do_show(self, line):
         """
         String representation: provide class name and id
         Usage: show <ClassName <id>
         """
-        if len(args) == 0:
+        if len(line) == 0:
             print("** class name missing **")
             return
-        if args not in HBNBCommand.classes:
+        args = line.split()
+        # creates a list of string to use argv system
+        if args[0] not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        if len(args) == 1:
+        if args[1]:
+            name = "{}.{}".format(args[0], args[1])
+            if name not in storage.all().keys():
+                # all().keys() according to the "pattern"
+                # of the key we declared here and before
+                print("** no instance found **")
+            else:
+                print(storage.all())
+        else:
             print("** instance id missing **")
-            return
-        className = f"{args[0]}, {args[1]}"
 
     def do_destroy(self, args):
         """Deletes an instance based
