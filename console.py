@@ -5,6 +5,7 @@ import argparse
 import models
 from datetime import datetime
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -12,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
     """Terminal like python"""
 
     prompt = '(hbnb)'
-    classes = {"BaseModel"}
+    classes = {"BaseModel", "User"}
 
     def do_EOF(self, arg):
         """Ctrl-d"""
@@ -112,10 +113,11 @@ class HBNBCommand(cmd.Cmd):
         if len(args) >= 4:
             name = f"{args[0]}.{args[1]}"
             right_type = type(args[2])
+            print(right_type)
             args3 = right_type(args[3])
             args3 = args3.strip('\"')
             setattr(storage.all()[name], args[2], args3)
-            storage.save()[name].all()
+            storage.all()[name].save()
         elif len(args) == 0:
             print("** class name missing **")
         elif args[0] not in HBNBCommand.classes:
