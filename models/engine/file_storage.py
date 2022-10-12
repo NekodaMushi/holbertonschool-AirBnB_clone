@@ -41,7 +41,7 @@ class FileStorage:
             with open(self.__file_path, "r+") as data:
                 JSONdata = json.load(data)
                 for key, value in JSONdata.items():
-                    # Use eval because you wanna reconstruct an object
+                    #Use eval because you wanna reconstruct an instance
                     self.__objects[key] = eval(value['__class__'])(**value)
         # Get all exceptions possible
         except Exception:

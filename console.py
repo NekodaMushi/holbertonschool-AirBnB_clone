@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Console- entry point of cmd interpreter"""
+"""Entry point of command interpreter"""
 import cmd
 import argparse
 import models
@@ -9,22 +9,20 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    """let's have fun!!"""
-    # Customize prompt right here easily
+    """Terminal like python"""
+
     prompt = '(hbnb)'
     classes = {"BaseModel"}
 
-    def do_EOF(self, line):
-        """Ctrl^D exit the program"""
+    def do_EOF(self, arg):
+        """Ctrl-d"""
         return True
 
     def do_quit(self, arg):
         """Quit command to exit the program"""
-        sys.exit(1)
+        exit()
 
     def emptyline(self):
-        """empty line + ENTER
-        won't execute anything"""
         pass
 
     def do_create(self, args):
@@ -66,6 +64,38 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** instance id missing **")
 
+    def do_destroy(self, args):
+        """Deletes an instance based
+        on the class name and id"""
+        dict = storage.all()
+        idExist = 0
+        if len(args) == 0:
+            print("** class name missing **")
+        elif args not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+        elif len(args) == 1:
+            print("** instance id missing **")
+        else:
+            for key, value in dict.items():
+                if key == f"{args[0].args[1]}":
+                    dict.pop(key)
+                    storage.save()
+                    idExist = 1
+            if idExist == 0:
+                print('** no instance found **')
 
-if __name__ == "__main__":
+    def do_all(self, args):
+        """Prints all strings representation of all
+        instances based or not on the class name"""
+        all_dict = storage.all()
+        string_list = []
+        if len(args) == 1:
+            if args[0] not in HBNBCommand.classes:
+                print("** class doesn't exist **")
+        for value in all_dict.values():
+            if value.__class__.__name__ == args[0]:
+                string_list.append(str(value))
+        print(string_list)
+
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
