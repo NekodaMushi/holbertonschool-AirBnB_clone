@@ -1,4 +1,4 @@
-# AirBnB_clone v1 - File storage / Console
+# **AirBnB_clone v1 :sunny: - File storage / Console - with :snake: Python**
 
 We made this project in order to learn how to recreate the AirBnB website, from the back-end data management to the front-end user interface.
 
@@ -12,11 +12,20 @@ This repo contains the first part of the project which consists in :
 
 ![Alt text](https://imagizer.imageshack.com/v2/1257x669q90/924/Aebfet.png "The part of this project: v1")
 
-# Command interpreter
+# **Command interpreter**
 
-yet to be defined...
+[**console.py**](console.py) - is used as the "entry-point" of the command-interpreter, here's the list of available commands:
+    - **EOF** - exits the console <br>
+    - **quit** - quit the console <br>
+    - **emptyline** - emptyline method is here overloaded, in order to do nothing when you press enter <br>
+    - **create** - Creates a new instance based on user input <br>
+    - **show** - Prints the string representation of an instance, format \<classname\> \<id\> <br>
+    - **destroy** - Deletes an instance and save modifications on the JSON file <br>
+    - **all** - Prints all string representation of all instances based on the class name or not <br>
+    - **update** - Updates an instance, based on class name and id provided by user, by adding or updating attributes <br> 
 
-### Mandatory part
+### **Mandatory part**
+
 
 yet to be defined...
 
@@ -30,21 +39,35 @@ yet to be defined...
 
 ## How to use it
 
-You can access the console via two modes.
+<u>You can access the console via two modes.</u>
 
-Interactive mode:
+**Interactive mode:**
 
     $ ./console.py
 
-Non-interactive mode:
+**Non-interactive mode:**
 
     $ echo "<command>" | ./console.py
 
-## Examples
+## **Examples**
 
-Standard commands:
+**Standard commands:**
+```
+./console.py
+(hbnb) help
 
-        yet to be defined...
+Documented commands (type help <topic>):
+========================================
+EOF  all  create  destroy  help  quit  show  update
+
+(hbnb) create BaseModel
+014ae95d-91b5-4c85-acc4-8d768482d471
+(hbnb) show BaseModel
+** instance id missing **
+(hbnb) show BaseModel 014ae95d-91b5-4c85-acc4-8d768482d471
+[BaseModel] (014ae95d-91b5-4c85-acc4-8d768482d471) {'created_at': datetime.datetime(2022, 10, 13, 5, 14, 44, 854946), 'updated_at': datetime.datetime(2022, 10, 13, 5, 14, 44, 855166), 'id': '014ae95d-91b5-4c85-acc4-8d768482d471'}
+```
+
 
 ### Advanced commands:
 
