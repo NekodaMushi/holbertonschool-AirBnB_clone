@@ -18,5 +18,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsNotNone(dic_obj)
         self.assertEqual(type(dic_obj), dict)
 
+
 if __name__ == '__main__':
     unittest.main()

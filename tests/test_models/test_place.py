@@ -8,7 +8,7 @@ class TestPlace(unittest.TestCase):
     """Place Test Class"""
 
     def test_var_validity(self):
-        """Method testing validity 
+        """Method testing validity
         of variable in Place"""
         p = Place()
         self.assertTrue(p, "city_id")
@@ -32,6 +32,7 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(p.price_by_night, "")
         self.assertEqual(p.latitude, "")
         self.assertEqual(p.amenity_ids, "")
+
 
 if __name__ == '__main__':
     unittest.main()
