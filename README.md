@@ -75,6 +75,6 @@ EOF  all  create  destroy  help  quit  show  update
 
 ### Authors
 
-- [Anthony Pizzonie](https://github.com/HINKOKO?tab=repositories)
+- [Anthony Pizzoni](https://github.com/HINKOKO?tab=repositories)
 
 - [Fabien Pineau](https://github.com/NekodaMushi)
