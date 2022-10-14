@@ -16,19 +16,18 @@ class TestFileStorage(unittest.TestCase):
         all dictionary __objects"""
         store = FileStorage()
         dic_obj = store.all()
-        self.assertDictEqual(dic_obj, {})
         self.assertEqual(type(dic_obj), dict)
 
     def test_save(self):
         """Test Save function"""
         self.setUp()
-        self.assertEqual(os.path.getsize("file.json"), 2)
+        self.assertEqual(os.path.getsize("file.json"), 212)
         os.remove("file.json")
         model = BaseModel()
         model.save()
         self.assertTrue(os.path.exists("file.json"))
-        self.assertGreater(os.path.getsize("file.json"), 2)
-    
+        self.assertGreater(os.path.getsize("file.json"), 212)
+
     def test_reload(self):
         """Testing if object is recreated from json"""
         FileStorage._FileStorage__objects = {}
@@ -38,7 +37,8 @@ class TestFileStorage(unittest.TestCase):
         FileStorage._FileStorage__objects = {}
         self.assertEqual(len(FileStorage().all()), 0)
         FileStorage().reload()
-        self.assertEqual(len(FileStorage().all()), 2)
+        self.assertEqual(len(FileStorage().all()), 1)
+
 
 if __name__ == "__main__":
     unittest.main()
