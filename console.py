@@ -20,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
     classes = {"BaseModel", "User", "State",
                "City", "Amenity", "Place", "Review"}
-    list_func = {"create", "show", "destroy", "all", "update"}
+    list_func = {"create", "show", "destroy", "all", "update", "count"}
 
     def precmd(self, args):
         """
@@ -36,7 +36,6 @@ class HBNBCommand(cmd.Cmd):
             arg = b[0].split(')')
             if a[0] in HBNBCommand.classes and b[0] in HBNBCommand.list_func:
                 args = b[0] + ' ' + a[0]
-        print(args)
         return args
 
     def do_EOF(self, arg):
@@ -160,6 +159,18 @@ class HBNBCommand(cmd.Cmd):
             args3 = args3.strip('"')
             setattr(storage.all()[name], args[2], right_type(args3))
             storage.all()[name].save()
+
+    def do_count(self, arg):
+        """
+        Retrieve the number of instances of a class
+        """
+        num = 0
+        all_inst = storage.all()
+        for k in all_inst.keys():
+            real_key = k.split('.')
+            if real_key[0] == arg:
+                num += 1
+        print(num)
 
 
 if __name__ == "__main__":
