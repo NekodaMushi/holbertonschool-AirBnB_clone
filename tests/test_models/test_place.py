@@ -26,12 +26,12 @@ class TestPlace(unittest.TestCase):
         self.assertEqual(p.user_id, "")
         self.assertEqual(p.name, "")
         self.assertEqual(p.description, "")
-        self.assertEqual(p.number_rooms, "")
-        self.assertEqual(p.number_bathrooms, "")
-        self.assertEqual(p.max_guest, "")
-        self.assertEqual(p.price_by_night, "")
-        self.assertEqual(p.latitude, "")
-        self.assertEqual(p.amenity_ids, "")
+        self.assertEqual(p.number_rooms, 0)
+        self.assertEqual(p.number_bathrooms, 0)
+        self.assertEqual(p.max_guest, 0)
+        self.assertEqual(p.price_by_night, 0)
+        self.assertEqual(p.latitude, 0.0)
+        self.assertEqual(p.amenity_ids, [])
 
 
 if __name__ == '__main__':
