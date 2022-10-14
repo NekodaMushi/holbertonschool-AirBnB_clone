@@ -20,6 +20,24 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb)'
     classes = {"BaseModel", "User", "State",
                "City", "Amenity", "Place", "Review"}
+    list_func = {"create", "show", "destroy", "all", "update"}
+
+    def precmd(self, args):
+        """
+        ** supercharge precmd **
+        Hook method executed just before the cmd line interpretation
+        With this method, we can "rewrite" the command entered
+        Purpose: Parse the input, organize arguments,
+        and return the value to be used as a command
+        """
+        if '.' in args and '(' in args and ')' in args:
+            a = args.split('.')
+            b = a[1].split('(')
+            arg = b[0].split(')')
+            if a[0] in HBNBCommand.classes and b[0] in HBNBCommand.list_func:
+                args = b[0] + ' ' + a[0]
+        print(args)
+        return args
 
     def do_EOF(self, arg):
         """Ctrl-d"""
@@ -137,7 +155,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         if len(args) == 4:
             name = f"{args[0]}.{args[1]}"
-            right_type = type(args[3])
+            right_type = type(args[2])
             args3 = args[3]
             args3 = args3.strip('"')
             setattr(storage.all()[name], args[2], right_type(args3))
